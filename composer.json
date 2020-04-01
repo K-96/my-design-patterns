@@ -1,0 +1,26 @@
+{
+    "name": "php-sexy/my-design-patterns",
+    "description": "My understanding of design patterns in PHP context.",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Evgeniy Kotuykov",
+            "email": "sexy.php.ru@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DesignPatterns\\":"src/DesignPatterns"
+        }
+    },
+    "require": {
+        "psr/cache": "^1.0",
+        "psr/simple-cache": "^1.0",
+        "ext-redis": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    }
+}
