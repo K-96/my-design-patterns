@@ -13,6 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
+
 #endregion
 
 /**
@@ -21,13 +22,15 @@ use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
  * @param CommunicatorInterface $communicator
  * @return ResponseInterface
  *
- * @throws ParserErrorInterface
+ * @throws ContentErrorInterface
+ * @throws RuntimeException
  */
 function clientCode(
     RequestInterface $request,
     ResponseInterface $response,
     CommunicatorInterface $communicator
-): ResponseInterface {
+): ResponseInterface
+{
     $cRequest = $communicator->adeptRequest($request);
     $cResponse = $communicator->adeptResponse($response);
     $parser = $communicator->createParser();
@@ -36,14 +39,15 @@ function clientCode(
         $result = domainLogic($parser->decode($cRequest->extractContent()));
 
         $cResponse->setContent($parser->encode($result));
-    } catch (ParserErrorInterface | ContentErrorInterface $e) {
+    } catch (ParserErrorInterface $e) {
         throw new RuntimeException($e->getMessage(), 500, $e);
     }
 
     return $cResponse->getResponse();
 }
 
-function domainLogic(array $data): array {
+function domainLogic(array $data): array
+{
     // some domain logic
     return ['name' => $data['name'] ?? 'not found name from request'];
 }
@@ -77,7 +81,7 @@ try {
     $response->withHeader('X-Success', false);
 } catch (Throwable $e) {
     $response->withStatus(500);
-    $response->withHeader('X-Error','Internal server error.');
+    $response->withHeader('X-Error', 'Internal server error.');
     $response->withHeader('X-Success', false);
 }
 
