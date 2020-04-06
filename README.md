@@ -2,8 +2,8 @@
 
 ### Порождающие
 
-- [Фабричный метод](src/DesignPatterns/AbstractFactory)
-- [Абстрактная фабрика](src/DesignPatterns/FactoryMethod)
+- [Фабричный метод](src/DesignPatterns/FactoryMethod)
+- [Абстрактная фабрика](src/DesignPatterns/AbstractFactory)
 
 ### Структурные
 
