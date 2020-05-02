@@ -2,13 +2,14 @@
 
 ### Порождающие
 
-- [Фабричный метод](src/DesignPatterns/FactoryMethod)
-- [Абстрактная фабрика](src/DesignPatterns/AbstractFactory)
-- [Строитель](src/DesignPatterns/Builder) - рассматривается совместно с Компоновщиком
-- [Прототип](src/DesignPatterns/Prototype)
+- [Фабричный метод | Factory method](src/DesignPatterns/FactoryMethod)
+- [Абстрактная фабрика | Abstract factory](src/DesignPatterns/AbstractFactory)
+- [Строитель | Builder](src/DesignPatterns/Builder) - рассматривается совместно с Компоновщиком
+- [Прототип | Prototype](src/DesignPatterns/Prototype)
+- [Одиночка | Singleton](src/DesignPatterns/Singleton)
 
 ### Структурные
 
-- [Компоновщик](src/DesignPatterns/Builder) - рассматривается совместно со Строителем
+- [Компоновщик | Composite](src/DesignPatterns/Builder) - рассматривается совместно со Строителем
 
 ### Поведенческие
