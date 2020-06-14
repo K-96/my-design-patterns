@@ -11,9 +11,10 @@ class Request implements RequestInterface
     private PsrRequestInterface $request;
     private string $contentType = 'application/json';
 
-    public function __construct(PsrRequestInterface $request)
+    public function adept(PsrRequestInterface $request): self
     {
         $this->request = $request;
+        return $this;
     }
 
     public function extractContent(): string

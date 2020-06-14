@@ -2,9 +2,6 @@
 
 namespace DesignPatterns\AbstractFactory;
 
-use \Psr\Http\Message\RequestInterface as PsrRequestInterface;
-use \Psr\Http\Message\ResponseInterface as PsrResponseInterface;
-
 /**
  * Interface CommunicatorInterface
  * AbstractFactory
@@ -13,8 +10,8 @@ use \Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 interface CommunicatorInterface
 {
 
-    public function adeptRequest(PsrRequestInterface $request): RequestInterface;
+    public function createRequest(): RequestInterface;
     public function createParser(): ParserInterface;
-    public function adeptResponse(PsrResponseInterface $response): ResponseInterface;
+    public function createResponse(): ResponseInterface;
 
 }

@@ -6,13 +6,11 @@ use DesignPatterns\AbstractFactory\CommunicatorInterface;
 use DesignPatterns\AbstractFactory\ParserInterface;
 use DesignPatterns\AbstractFactory\RequestInterface;
 use DesignPatterns\AbstractFactory\ResponseInterface;
-use Psr\Http\Message\RequestInterface as PsrRequestInterface;
-use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
 class Communicator implements CommunicatorInterface
 {
 
-    public function adeptRequest(PsrRequestInterface $request): RequestInterface
+    public function createRequest(): RequestInterface
     {
         // TODO: Implement adeptRequest() method.
     }
@@ -22,7 +20,7 @@ class Communicator implements CommunicatorInterface
         // TODO: Implement createParser() method.
     }
 
-    public function adeptResponse(PsrResponseInterface $response): ResponseInterface
+    public function createResponse(): ResponseInterface
     {
         // TODO: Implement adeptResponse() method.
     }

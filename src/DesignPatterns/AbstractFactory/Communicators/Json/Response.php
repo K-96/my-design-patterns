@@ -11,9 +11,10 @@ class Response implements ResponseInterface
     private PsrResponseInterface $response;
     private string $contentType = 'application/json';
 
-    public function __construct(PsrResponseInterface $response)
+    public function adept(PsrResponseInterface $response): self
     {
         $this->response = $response;
+        return $this;
     }
 
     public function setContent(string $content): void

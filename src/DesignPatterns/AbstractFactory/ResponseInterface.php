@@ -9,5 +9,6 @@ interface ResponseInterface
 
     public function setContent(string $content): void;
     public function getResponse(): PsrResponseInterface;
+    public function adept(PsrResponseInterface $response): self;
 
 }
