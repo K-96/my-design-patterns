@@ -3,9 +3,9 @@
 namespace DesignPatterns\AbstractFactory\Communicators\Json;
 
 use DesignPatterns\AbstractFactory\ContentErrorInterface;
-use Exception;
+use RuntimeException;
 
-class ContentError extends Exception implements ContentErrorInterface
+class ContentError extends RuntimeException implements ContentErrorInterface
 {
 
 }

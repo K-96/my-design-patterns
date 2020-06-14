@@ -8,13 +8,6 @@ use JsonException;
 class Parser implements ParserInterface
 {
 
-    private TypesFromDecode $typesFromDecode;
-
-    public function __construct(TypesFromDecode $typesFromDecode)
-    {
-        $this->typesFromDecode = $typesFromDecode;
-    }
-
     /**
      * @inheritDoc
      */
@@ -33,7 +26,7 @@ class Parser implements ParserInterface
     public function decode(string $content)
     {
         try {
-            return json_decode($content, $this->typesFromDecode->getType(), 512, JSON_THROW_ON_ERROR);
+            return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $je) {
             throw new ParserError('Error decode content.', 500, $je);
         }

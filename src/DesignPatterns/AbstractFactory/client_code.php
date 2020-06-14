@@ -3,7 +3,6 @@
 #region Import
 use DesignPatterns\AbstractFactory\CommunicatorInterface;
 use DesignPatterns\AbstractFactory\Communicators\Json\Communicator as JsonCommunicator;
-use DesignPatterns\AbstractFactory\Communicators\Json\TypesFromDecode;
 use DesignPatterns\AbstractFactory\Communicators\Xml\Communicator as XmlCommunicator;
 use DesignPatterns\AbstractFactory\Communicators\Tsv\Communicator as TsvCommunicator;
 use DesignPatterns\AbstractFactory\ContentErrorInterface;
@@ -13,7 +12,6 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
-
 #endregion
 
 /**
@@ -31,8 +29,8 @@ function clientCode(
     CommunicatorInterface $communicator
 ): ResponseInterface
 {
-    $cRequest = $communicator->adeptRequest($request);
-    $cResponse = $communicator->adeptResponse($response);
+    $cRequest = $communicator->createRequest()->adept($request);
+    $cResponse = $communicator->createResponse()->adept($response);
     $parser = $communicator->createParser();
 
     try {
@@ -60,29 +58,26 @@ $response = new Response();
 try {
     switch ($request->getHeader('content-type')) {
         case 'application/json':
-            $communicator = new JsonCommunicator(new TypesFromDecode(TypesFromDecode::ARRAY));
+            $communicator = new JsonCommunicator();
             break;
         case 'application/xml':
             $communicator = new XmlCommunicator();
-            break;
+            throw new RuntimeException('This format is temporarily not supported.', 400);
         case 'text/tab-separated-values':
             $communicator = new TsvCommunicator();
-            break;
+            throw new RuntimeException('This format is temporarily not supported.', 400);
         default:
-            throw new RuntimeException('Unknown data format.', 400);
+            throw new RuntimeException('Unknown data format.', 404);
     }
 
     $response = clientCode($request, $response, $communicator);
-    $response->withHeader('X-Success', true);
     $response->withStatus(200);
 } catch (RuntimeException $e) {
     $response->withStatus($e->getCode());
-    $response->withHeader('X-Error', $e->getMessage());
-    $response->withHeader('X-Success', false);
+    $response->withHeader('X-Error-Message', $e->getMessage());
 } catch (Throwable $e) {
     $response->withStatus(500);
-    $response->withHeader('X-Error', 'Internal server error.');
-    $response->withHeader('X-Success', false);
+    $response->withHeader('X-Error-Message', 'Internal server error.');
 }
 
 (new SapiEmitter())->emit($response);
